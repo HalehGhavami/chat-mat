@@ -1,6 +1,8 @@
 # Chat Mat 💬📱
 
-![chat-mat](/task5-1.gif)
+<p align="center">
+  <img src="/task5-1.gif" width="222">
+  </p>
 
 ## Description
 
