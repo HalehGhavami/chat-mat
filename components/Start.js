@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -62,6 +62,10 @@ export default class Start extends React.Component {
                   backColor: this.state.backColor,
                 })
               }
+              accessible={true}
+              accessibilityLabel="Start Chat"
+              accessibilityHint="This lets you enter the chat with the name provided in the input."
+              accessibilityRole="button"
             >
               <Text style={styles.startText}>Let's Chat!</Text>
             </TouchableOpacity>
