@@ -34,24 +34,44 @@ export default class Start extends React.Component {
               <Text style={styles.colorText}>Choose Background Color:</Text>
               <View style={styles.backColor}>
                 <TouchableOpacity
+                  accessible={true}
+                  accessibilityLabel="Very dark green background"
+                  accessibilityHint="Choose background color"
+                  accessibilityRole="button"
                   style={styles.colorSelection1}
                   onPress={() => this.setState({ backColor: '#090C08' })}
                 />
                 <TouchableOpacity
+                  accessible={true}
+                  accessibilityLabel="Very dark grayish violet background"
+                  accessibilityHint="Choose background color"
+                  accessibilityRole="button"
                   style={styles.colorSelection2}
                   onPress={() => this.setState({ backColor: '#474056' })}
                 />
                 <TouchableOpacity
+                  accessible={true}
+                  accessibilityLabel="Dark grayish blue background"
+                  accessibilityHint="Choose background color"
+                  accessibilityRole="button"
                   style={styles.colorSelection3}
                   onPress={() => this.setState({ backColor: '#8A95A5' })}
                 />
                 <TouchableOpacity
+                  accessible={true}
+                  accessibilityLabel="Grayish green background"
+                  accessibilityHint="Choose background color"
+                  accessibilityRole="button"
                   style={styles.colorSelection4}
                   onPress={() => this.setState({ backColor: '#B9C6AE' })}
                 />
               </View>
             </View>
             <TouchableOpacity
+              accessible={true}
+              accessibilityLabel="Start Chat"
+              accessibilityHint="This lets you enter the chat with the name provided in the input."
+              accessibilityRole="button"
               title="Go to Chat"
               style={
                 (styles.startButton, { backgroundColor: this.state.backColor })
@@ -62,10 +82,6 @@ export default class Start extends React.Component {
                   backColor: this.state.backColor,
                 })
               }
-              accessible={true}
-              accessibilityLabel="Start Chat"
-              accessibilityHint="This lets you enter the chat with the name provided in the input."
-              accessibilityRole="button"
             >
               <Text style={styles.startText}>Let's Chat!</Text>
             </TouchableOpacity>
