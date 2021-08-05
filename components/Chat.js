@@ -19,6 +19,9 @@ import {
   Alert,
 } from 'react-native';
 
+import CustomActions from './CustomActions';
+import MapView from 'react-native-maps';
+
 // Google Firebase
 const firebase = require('firebase');
 require('firebase/firestore');
@@ -35,6 +38,8 @@ export default class Chat extends React.Component {
         avatar: '',
       },
       isConnected: false,
+      image: null,
+      location: null,
     };
 
     // The web app's Firebase configuration
@@ -53,8 +58,13 @@ export default class Chat extends React.Component {
     }
     // References Firebase messages
     this.referenceChatMessages = firebase.firestore().collection('messages');
-    //Ignore's timer warnings
-    LogBox.ignoreLogs(['Setting a timer']);
+    //Ignores warnings
+    LogBox.ignoreLogs([
+      'Setting a timer',
+      'expo-permissions is now deprecated',
+      'Animated.event now requires a second argument for options',
+      'Animated: `useNativeDriver` was not specified',
+    ]);
   }
 
   // Sets the state, and shows static message with the user's name
@@ -127,6 +137,8 @@ export default class Chat extends React.Component {
           name: data.user.name,
           avatar: data.user.avatar,
         },
+        image: data.image || null,
+        location: data.location || null,
       });
     });
     this.setState({ messages });
@@ -180,6 +192,8 @@ export default class Chat extends React.Component {
       createdAt: message.createdAt,
       text: message.text || null,
       user: message.user,
+      image: message.image || null,
+      location: message.location || null,
     });
   };
 
@@ -238,8 +252,38 @@ export default class Chat extends React.Component {
     );
   }
 
+  renderCustomView(props) {
+    const { currentMessage } = props;
+    if (currentMessage.location) {
+      return (
+        <MapView
+          style={{
+            width: 150,
+            height: 100,
+            borderRadius: 13,
+            margin: 3,
+          }}
+          region={{
+            //Adding Number() before the variables removes Warning: Failed prop type:
+            //Invalid prop `region.latitude` of type `string` supplied to `MapView`, expected `number`.
+            latitude: Number(currentMessage.location.latitude),
+            longitude: Number(currentMessage.location.longitude),
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
+      );
+    }
+    return null;
+  }
+
+  //  is responsible for creating the circle button
+  renderActions = (props) => {
+    return <CustomActions {...props} />;
+  };
+
   render() {
-    const { name } = this.props.route.params;
+    // const { name } = this.props.route.params;
     const { messages, user } = this.state;
     return (
       <View
@@ -251,10 +295,12 @@ export default class Chat extends React.Component {
         <GiftedChat
           // Renders custom bubble
           renderBubble={this.renderBubble.bind(this)}
-          // Renders state messages
-          messages={messages}
           renderInputToolbar={this.renderInputToolbar.bind(this)}
           renderUsernameOnMessage={true}
+          renderActions={this.renderActions}
+          renderCustomView={this.renderCustomView}
+          // Renders state messages
+          messages={messages}
           onSend={(messages) => this.onSend(messages)}
           user={user}
           // user={{
@@ -263,6 +309,7 @@ export default class Chat extends React.Component {
           //   name: name,
           // }}
         />
+        {/* Android keyboard fix */}
         {Platform.OS === 'android' ? (
           <KeyboardAvoidingView behavior="height" />
         ) : null}
