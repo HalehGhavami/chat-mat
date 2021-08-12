@@ -1,8 +1,14 @@
 # Chat Mat 💬📱
 
 <p align="center">
-  <img src="/task5-4.gif" width="222">
+  <img src="/task5-5.gif" width="222">
   </p>
+  
+  ## Design for:
+<p>
+<img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white">
+<img src="https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white">
+</p>
 
 ## Description
 
@@ -70,3 +76,12 @@ After using the "expo start" command to run the app, you can use 'e' to send you
 #### Running the App with Android Studio or
 
 With the command line interface open after using the 'expo start' command, press 'a' to run the app with an Android emulator, or press 'i' to run the app with iOS simulator.
+
+### Packages used:
+
+- React-Native
+- React-Navigation/Native
+- React-Native-gifted-chat
+- Expo-permissions
+- Expo-location
+- Expo-image-picker
